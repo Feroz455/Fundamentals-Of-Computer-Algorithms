@@ -33,24 +33,6 @@ int main()
 }
 /*
 output
-***run 1***
-4 
--1
-2
--6
-2
-Enter Value of x
-3
-
-SUM = 5
-
-*****run 2***
-4
-1 3 0 2
-Enter Value of x
-2
-
-SUM = 23
 5
 3 2 8 9 1
 Enter Value of x
