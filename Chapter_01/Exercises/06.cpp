@@ -33,7 +33,9 @@ void fibonacchi_Nonrecursive(int fibA, int fibB, int N)
 }
 int main()
 {
-    int fibA, fibB, N = 7;
+    int fibA, fibB;
+    int N;
+    cin >> N;
     fibA = 0;
     fibB = 1;
     fibonacchi(fibA, fibB, N);
@@ -41,3 +43,8 @@ int main()
     fibonacchi_Nonrecursive(fibA, fibB, N);
     return 0;
 }
+/*
+20
+1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 
+1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 
+*/
