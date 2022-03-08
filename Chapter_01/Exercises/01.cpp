@@ -5,6 +5,7 @@ minimum number of multiplicaion. If the polynomial is
 A(x) = an x^n + an-1 x^n-1 + an-2 x^n-3 + an-4 x^n-4 + ....... + a1x + a0;
 Horner's rule is
 A(x0) = (....(anx0+an-1)x0 +  . . . . + a1)x0 + a0
+
 */
 #include <iostream>
 #include<cmath>
@@ -21,7 +22,7 @@ int main()
     int N , x, sum = 0;
     cin >> N;
     int A[N];
-    for (int i = N-1; i >= 0 ; i--)
+    for (int i = 0; i < N ; i++)
     {
         cin >> A[i];
     }
@@ -50,4 +51,10 @@ Enter Value of x
 2
 
 SUM = 23
+5
+3 2 8 9 1
+Enter Value of x
+2
+
+SUM = 115
 */
