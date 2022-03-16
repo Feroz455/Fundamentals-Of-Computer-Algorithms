@@ -73,7 +73,9 @@ bool Add_K(int item, int position)
     }
 }
 
-Write an alagorithm to insert an element y immediately after the kth element.
+C) Write an alagorithm to insert an element y immediately after the kth element.
+What is the time complexity of your algorithm for parts (b) and (c)
+ANS -> Big-Oh(n);
 */
 #include <iostream>
 #include <ctime>
