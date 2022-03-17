@@ -121,7 +121,7 @@ int main()
 
     if (Search(3, root) != NULL)
     {
-        cout << "\nRank found\n";
+        cout << "\nRank found "  << Search(3,root)->key << "\n";
     }
     else
         cout << "\nRank Not found\n";
