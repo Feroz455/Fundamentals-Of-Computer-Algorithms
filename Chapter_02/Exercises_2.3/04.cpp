@@ -1,3 +1,8 @@
+/*
+page 99
+Do exercise 3, But this time present an algorithm to delete the element with
+the kth-smallest key in the binary search tree
+*/
 #include <iostream>
 #include <ctime>
 #include <cmath>
