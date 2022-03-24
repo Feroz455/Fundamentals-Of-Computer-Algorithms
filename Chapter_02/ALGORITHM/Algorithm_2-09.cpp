@@ -79,10 +79,10 @@ void Adjust(int a[], int i, int n)
         if (item >= a[j])
             break;
         // A position for item is found
-        a[parent(i)] = a[j];
+        a[parent(j)] = a[j];
         j = 2 * j;
     }
-    a[parent(i)] = item;
+    a[parent(j)] = item;
 }
 bool DelMax(int a[], int n, int &x)
 {
