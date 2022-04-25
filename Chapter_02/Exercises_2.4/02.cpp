@@ -1,6 +1,6 @@
 /*
 Page 109
-1. Consider the array [-3, 5, 6, 7, 20, 8, 2, 9, 12, 25, 15, 30, 17]
+2. Consider the array [10, 2, 7, 6, 5, 9, 12, 35, 22, 35, 22, 15, 1, 3, 4]
 a) Drow the corresponding complete binray tree
 b) Heapify the tree by using the method of algorithm 2.11. Show the result in both tree and array format
 c) Now insert the elements 15 , 20 and 45 (in this order) using the bubbling up process of algorithm 2.8
@@ -84,7 +84,7 @@ bool DelMax(int a[], int n, int &x)
 int main()
 {
     srand(time(0));
-    int array[100], N = 12;
+    int array[100], N = 15;
     for (int i = 1; i <= N; i++)
     {
         cin >> array[i];
@@ -128,7 +128,7 @@ int main()
 /*
 Output
 10 2 7 6 5 9 12 35 22 35 22 15 1 3 4
-35  35  15  22  22  9  12  6  2  5  10  7  
-45 35 35 22 22 15 20 6 2 5 10 7 9 12 15    
-45 35 35 22 22 20 15 15 12 10 9 7 6 5 2 
+35  35  15  22  22  9  12  6  2  5  10  7  1  3  4  
+45 35 15 35 22 9 12 20 22 5 10 7 1 3 4 6 15 2 
+45 35 35 22 22 20 15 15 12 10 9 7 6 5 4 3 2 1 
 */
