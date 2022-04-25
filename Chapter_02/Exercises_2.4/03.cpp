@@ -1,6 +1,6 @@
 /*
 Page 109
-1. Consider the array [-3, 5, 6, 7, 20, 8, 2, 9, 12, 25, 15, 30, 17]
+3. Consider the array [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 1, 22, 35]
 a) Drow the corresponding complete binray tree
 b) Heapify the tree by using the method of algorithm 2.11. Show the result in both tree and array format
 c) Now insert the elements 15 , 20 and 45 (in this order) using the bubbling up process of algorithm 2.8
