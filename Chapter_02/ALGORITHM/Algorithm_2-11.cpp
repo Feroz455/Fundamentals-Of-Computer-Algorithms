@@ -62,7 +62,7 @@ void Adjust(int a[], int i, int n)
 void Heapify(int a[], int n)
 // ReadJust the elements in a[1:n] to from a heap
 {
-    for (int i = n; i > 0; i--)
+    for (int i = n/2; i > 0; i--)
     {
         Adjust(a, i, n);
     }
