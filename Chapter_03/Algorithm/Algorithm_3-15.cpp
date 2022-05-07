@@ -27,7 +27,7 @@ Algorithm QuickSort(p,q)
         return;
         Delete(q);
         Delete(p); // Delete q and p from stack
-    }while(false);
+    }while(true);
 }
 */
 #include <iostream>
