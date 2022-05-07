@@ -6,40 +6,13 @@ subsets. Write algorithm corresponding to select1 and select2 using this idea. U
 your new version of select2 show that the wrost-case computing time O(n) even when r = 5
 */
 #include <iostream>
-#include <ctime>
+#include <algorithm>
+#include <climits>
 #include <cmath>
-#define INF 2147483647
+#include <ctime>
 using namespace std;
-int r = 5;
-int partition(int a[], int l, int u)
-{
-    int v, i, j, temp;
-    v = a[l];
-    i = l;
-    j = u + 1;
-
-    do
-    {
-        do
-            i++;
-        while (a[i] <= v && i <= u);
-
-        do
-            j--;
-        while (v < a[j]);
-
-        if (i < j)
-        {
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    } while (i < j);
-
-    a[l] = a[j];
-    a[j] = v;
-    return (j);
-}
+int R = 5;
+int partition(int arr[], int l, int r, int k);
 void InsertionSort(int a[], int low, int high)
 {
     int item = 0, i;
@@ -56,43 +29,87 @@ void InsertionSort(int a[], int low, int high)
         a[i + 1] = item;
     }
 }
-/// i think i did not get actually whats is going one  here
-int select2(int a[], int k, int low, int up)
+// A simple function to find median of arr[].  This is called
+// only for an array of size R in this program.
+int findMedian(int arr[], int n)
 {
-    int n, temp, x, y, j;
-    do
+    InsertionSort(arr, 0, n); // Sort the array
+    return arr[n / 2];        // Return middle element
+}
+
+// Returns k'th smallest element in arr[l..r] in worst case
+// linear time. ASSUMPTION: ALL ELEMENTS IN ARR[] ARE DISTINCT
+int Select2(int arr[], int l, int r, int k)
+{
+    // If k is smaller than number of elements in array
+    if (k > 0 && k <= r - l + 1)
     {
-        n = up - low + 1; // Number of elements;
-        if (n <= r)
+        int n = r - l + 1; // Number of elements in arr[l..r]
+
+        // Divide arr[] in groups of size R, calculate median
+        // of every group and store it in median[] array.
+        int i, median[(n + 4) / R]; // There will be floor((n+4)/R) groups;
+        for (i = 0; i < n / R; i++)
+            median[i] = findMedian(arr + l + i * R, R);
+        if (i * R < n) // For last group with less than R elements
         {
-            InsertionSort(a, low, up);
-            return low + k - 1;
+            median[i] = findMedian(arr + l + i * R, n % R);
+            i++;
         }
-        for (int i = 1; i < floor(n / r); i++)
+
+        // Find median of all medians using recursive call.
+        // If median[] has only one element, then no need
+        // of recursive call
+        int medOfMed = (i == 1) ? median[i - 1] : Select2(median, 0, i - 1, i / 2);
+
+        // Partition the array around a random element and
+        // get position of pivot element in sorted array
+        int pos = partition(arr, l, r, medOfMed);
+
+        // If position is same as k
+        if (pos - l == k - 1)
+            return arr[pos];
+        if (pos - l > k - 1) // If position is more, recur for left
+            return Select2(arr, l, pos - 1, k);
+
+        // Else recur for right subarray
+        return Select2(arr, pos + 1, r, k - pos + l - 1);
+    }
+
+    // If k is more than number of elements in array
+    return INT_MAX;
+}
+
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// It searches for x in arr[l..r], and partitions the array
+// around x.
+int partition(int arr[], int l, int r, int x)
+{
+    // Search for x in arr[l..r] and move it to end
+    int i;
+    for (i = l; i < r; i++)
+        if (arr[i] == x)
+            break;
+    swap(&arr[i], &arr[r]);
+
+    // Standard partition algorithm
+    i = l;
+    for (int j = l; j <= r - 1; j++)
+    {
+        if (arr[j] <= x)
         {
-            InsertionSort(a, low + (i - 1) * r, low + i * r - 1);
-            // Collect medians in the front part of a[low:up];
-            x = low + i - 1;
-            y = low + (i - 1) * r + ceil(r / 2) - 1;
-            temp = a[x];
-            a[x] = a[y];
-            a[y] = temp;
+            swap(&arr[i], &arr[j]);
+            i++;
         }
-        j = select2(a, ceil(floor(n / r) / 2), low, low + floor(n / r) - 1); // mm
-        temp = a[low];
-        a[low] = a[j];
-        a[j] = temp;
-        j = partition(a, low, up + 1);
-        if (k == (j - low + 1))
-            return j;
-        else if (k < (j - low + 1))
-            up = j - 1;
-        else
-        {
-            k = k - (j - low + 1);
-            low = j + 1;
-        }
-    } while (true);
+    }
+    swap(&arr[i], &arr[r]);
+    return i;
 }
 
 void PrintArray(int array[], int low, int high)
@@ -113,14 +130,13 @@ int main()
         array[i] = rand() % 100;
     }
     PrintArray(array, low, size);
-    // Select1(array, size, 5);
     for (int i = low; i < size; i++)
-        select2(array, i, low, size - 1);
+        Select2(array, low, size - 1, i);
     PrintArray(array, low, size);
 
     return 0;
 }
 /*
-8 44 10 96 21 58 98 55 13 82 
-8 10 13 21 44 55 58 96 98 82
+67 56 68 10 81 40 49 66 14 44
+10 14 40 44 49 56 66 67 68 81
 */
