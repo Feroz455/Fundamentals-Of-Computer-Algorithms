@@ -1,0 +1,116 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+/***********************************/
+template <typename T>
+void PrintArray(T array[], int size);
+template <typename T>
+void Swap(T &a, T &b);
+void knapsack(float weight[], float profit[], float capacity, int object);
+void Sort(float profit[], float weight[], float ratio[], int size);
+/***********************************/
+// Main start here
+int main()
+{
+    int size = 20;
+    float weight[size], profit[size], capacity, ratio[size], temp;
+    int object, i, j;
+
+    cout << "Enter the number of object-: \t";
+    cin >> object;
+
+    cout << "\nEnter the capacity of knapsack:- \t";
+    cin >> capacity;
+
+    cout << "\nEnter weight  and Profit of each object:- \n";
+    for (i = 0; i < object; i++)
+    {
+        cin >> weight[i] >> profit[i];
+    }
+
+    for (i = 0; i < object; i++)
+    {
+        ratio[i] = profit[i] / weight[i];
+    }
+    cout << "Before sort \n";
+    Sort(profit, weight, ratio, object);
+    knapsack(weight, profit, capacity, object);
+}
+
+template <typename T>
+void Swap(T &a, T &b)
+{
+    T temp = a;
+    a = b;
+    b = temp;
+}
+template <typename T>
+void PrintArray(T array[], int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << setw(6) << array[i] << " ";
+    }
+    cout << "\n";
+}
+// We bubble sort
+void Sort(float profit[], float weight[], float ratio[], int size)
+{
+    int i, j;
+    float temp;
+    for (i = 0; i < size - 1; i++)
+    {
+        for (j = 0; j < size - i - 1; j++)
+        {
+            if (ratio[j] < ratio[j + 1])
+            {
+                Swap<float>(ratio[j], ratio[j + 1]);
+                Swap<float>(weight[j], weight[j + 1]);
+                Swap<float>(profit[j], profit[j + 1]);
+            }
+        }
+    }
+}
+
+void knapsack(float weight[], float profit[], float capacity, int object)
+{
+    float x[20] = {0.0}, final_Value = 0.0, Wgt;
+    int i, j;
+    Wgt = capacity;
+
+    for (i = 0; i < object; i++)
+    {
+
+        if (weight[i] <= Wgt)
+        {
+            Wgt -= weight[i];
+            x[i] = 1.0;
+            final_Value += profit[i];
+        }
+        else
+        {
+            break;
+        }
+    }
+    PrintArray<float>(x, object);
+    cout << "Maximum Profit is:-  " << final_Value << "\n";
+}
+
+/*
+Enter the number of object-:    7
+
+Enter the capacity of knapsack:-        15
+
+Enter weight  and Profit of each object:- 
+2 10
+3 5 
+5 15
+7 7 
+1 6 
+4 18
+1 3
+Before sort 
+     1      1      1      1      1      0      0
+Maximum Profit is:-  52
+*/
