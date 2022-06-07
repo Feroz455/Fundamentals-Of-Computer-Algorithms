@@ -46,7 +46,7 @@ void SumOfSub(int s, int k, int r)
     if (s + w[k] == M)
     {
         // Subset found
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < k; i++)
         {
             cout << x[i] << " ";
         }
